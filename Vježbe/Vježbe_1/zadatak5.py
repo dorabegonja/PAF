@@ -20,17 +20,11 @@ def pravac(x1, y1, x2, y2, spremi=False, ime="graf.pdf"):
         print("Spremljeno kao", ime)
     else:
         plt.show()
-
-
-# unos podataka
 x1 = float(input("x1: "))
 y1 = float(input("y1: "))
 x2 = float(input("x2: "))
 y2 = float(input("y2: "))
-
-# izbor korisnika
 izbor = input("Upiši 's' za spremanje ili bilo što za prikaz: ")
-
 if izbor == "s":
     ime = input("Ime datoteke (npr. graf.pdf): ")
     pravac(x1, y1, x2, y2, True, ime)
