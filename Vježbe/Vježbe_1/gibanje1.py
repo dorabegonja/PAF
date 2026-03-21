@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 F = float(input("Unesite silu u N: "))
-m = float(input("Unesite masu čestice u kg: "))
+m = float(input("Unesite masu čestice u kg (mora biti pozitivna): "))
 t_max = 10  #koliko dugo simuliramo gibanje
 dt = 0.01  #vremenski korak
 n = int(t_max / dt)  #koliko koraka trebamo napravit
