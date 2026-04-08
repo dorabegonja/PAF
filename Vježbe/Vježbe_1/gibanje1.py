@@ -11,8 +11,8 @@ a = [F/m]  # akceleracija konstantna
 #numeričko rješavanje (Eulerova metoda)
 for i in range(n):
     t_new = t[-1] + dt  #-1 označava zadnji element liste
-    v_new = v[-1] + a[-1] * dt
-    x_new = x[-1] + v[-1] * dt
+    v_new = v[i] + a[-1] * dt
+    x_new = x[i] + v_new * dt
     t.append(t_new)
     v.append(v_new)
     x.append(x_new)

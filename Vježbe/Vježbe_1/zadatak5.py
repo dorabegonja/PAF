@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-
 def pravac(x1, y1, x2, y2, spremi=False, ime="graf.pdf"):
     if x1 == x2:
         print("x =", x1, "(pravac okomit na x os)")
