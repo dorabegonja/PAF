@@ -41,7 +41,7 @@ def test_dt_values():
 
     plt.xlabel("x [m]")
     plt.ylabel("y [m]")
-    plt.title("Usporedba trajektorija za različite dt (Eulerova metoda)")
+    plt.title("Usporedba putanja za različite dt (Eulerova metoda)")
     plt.legend()
     plt.grid()
     plt.show()
