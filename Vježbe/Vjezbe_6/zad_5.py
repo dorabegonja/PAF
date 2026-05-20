@@ -19,11 +19,11 @@ def sigma_n(x):
 print("a)")
 print("Mali skup:")
 print("s =", s(malo_n))
-print("σ_x̄ =", sigma_x(malo_n))
+print("sigma_x =", sigma_x(malo_n))
 
 print("\nVeliki skup:")
 print("s =", s(veliko_n))
-print("σ_x̄ =", sigma_x(veliko_n))
+print("sigma_x =", sigma_x(veliko_n))
 
 print("\nb)")
 print(f"Mali skup: {abs(sigma_n(malo_n) - s(malo_n)) / s(malo_n) * 100} %")
