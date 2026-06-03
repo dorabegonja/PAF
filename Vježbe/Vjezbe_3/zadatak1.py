@@ -2,48 +2,59 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 class Projectile:
-    def __init__(self, x0, y0, v0, angle_deg, m=1.0, k=0.1, g=9.81):
-        self.x = x0
-        self.y = y0
-        self.vx = v0 * np.cos(np.radians(angle_deg))
-        self.vy = v0 * np.sin(np.radians(angle_deg))
+    def __init__(self, v0, angle, Cd=0.47, rho=1.225, A=0.01, m=1.0, g=9.81):
+        self.v0 = v0
+        self.angle = np.radians(angle)
+        self.Cd = Cd  #koeficijent otpora zraka
+        self.rho = rho 
+        self.A = A
         self.m = m
-        self.k = k
         self.g = g
+       
+        self.otpor = 0.5 * Cd * rho * A
 
-    def step(self, dt):
-        v = np.sqrt(self.vx**2 + self.vy**2)
-
-        ax = -(self.k / self.m) * v * self.vx
-        ay = -self.g - (self.k / self.m) * v * self.vy
-
-        self.vx += ax * dt
-        self.vy += ay * dt
-        self.x += self.vx * dt
-        self.y += self.vy * dt
+        self.vx0 = v0 * np.cos(self.angle)
+        self.vy0 = v0 * np.sin(self.angle)
 
     def simulate(self, dt):
-        xs, ys = [self.x], [self.y]
-        while self.y >= 0:
-            self.step(dt)
-            xs.append(self.x)
-            ys.append(self.y)
-        return np.array(xs), np.array(ys)
+        x, y = 0.0, 0.0 
+        vx, vy = self.vx0, self.vy0 
 
-def test_dt_values():
-    dts = [0.1, 0.05, 0.02, 0.01, 0.005]
-    plt.figure(figsize=(10, 6))
+        xs, ys = [x], [y]
 
-    for dt in dts:
-        p = Projectile(0, 0, v0=50, angle_deg=45, k=0.05)
-        x, y = p.simulate(dt)
-        plt.plot(x, y, label=f"dt = {dt}")
+        while y >= 0:
+            v = np.sqrt(vx**2 + vy**2)
+            
+            Fx = -self.otpor * v * vx
+            Fy = -self.otpor * v * vy - self.m * self.g
 
-    plt.xlabel("x [m]")
-    plt.ylabel("y [m]")
-    plt.title("Usporedba putanja za različite dt (Eulerova metoda)")
-    plt.legend()
-    plt.grid()
-    plt.show()
+            ax = Fx / self.m
+            ay = Fy / self.m
 
-test_dt_values()
+            #Euler
+            vx += ax * dt 
+            vy += ay * dt
+            x += vx * dt
+            y += vy * dt
+
+            xs.append(x)
+            ys.append(y)
+        return xs,ys
+
+proj = Projectile(v0=50, angle=45)
+dt_vrijednosti = [1.3, 0.1, 0.05, 0.3, 0.01, 0.005]
+#veci dt - manje precizno
+#manji dt - preciznije
+
+plt.figure()
+
+for dt in dt_vrijednosti:
+    xs, ys = proj.simulate(dt)
+    plt.plot(xs, ys, label=f"dt={dt}")
+
+plt.xlabel("x (m)")
+plt.ylabel("y (m)")
+plt.title("Kosi hitac s otporom zraka – Eulerova metoda")
+plt.legend()
+plt.grid()
+plt.show()
